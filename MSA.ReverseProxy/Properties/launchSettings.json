@@ -19,13 +19,5 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     }
-  },
-  "Kestrel": {
-    "Certificates": {
-      "Default": {
-        "Path": "../aspnet/https/localhost.pfx",
-        "Password": "MsaFundamental"
-      }
-    }
   }
 }

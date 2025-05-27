@@ -59,6 +59,16 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Apply migrations for MainDbContext
+using (var scope = app.Services.CreateScope())
+{
+    var mainDb = scope.ServiceProvider.GetRequiredService<MainDbContext>();
+    mainDb.Database.Migrate();
+
+    var sagaDb = scope.ServiceProvider.GetRequiredService<OrderStateDbContext>();
+    sagaDb.Database.Migrate();
+}
+
 // Configure middleware
 if (app.Environment.IsDevelopment())
 {
@@ -71,5 +81,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 app.Run();

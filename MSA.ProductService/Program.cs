@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using MSA.Common.Contracts.Settings;
 using MSA.Common.Mongo;
@@ -78,7 +79,11 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.OAuthClientId("product-swagger");
+        options.OAuthScopes("profile", "openid");
+    });
 }
 
 app.UseHttpsRedirection();
