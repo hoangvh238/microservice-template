@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/nightly/aspnet:7.0 AS base
+FROM mcr.microsoft.com/dotnet/nightly/aspnet:9.0-preview AS base
 WORKDIR /app
 EXPOSE 5001
 EXPOSE 15001
@@ -7,7 +7,7 @@ RUN mkdir -p startup
 COPY ./aspnet/https/update-ca-certificate-identity.sh /startup/
 RUN chmod +x /startup/update-ca-certificate-identity.sh
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0-jammy AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0-preview-jammy AS build
 WORKDIR /src
 COPY ["./MSA.IdentityServer/MSA.IdentityServer.csproj","src/MSA.IdentityServer/"]
 RUN dotnet restore "src/MSA.IdentityServer/MSA.IdentityServer.csproj"
