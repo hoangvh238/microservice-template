@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
     <PackageReference Include="Yarp.ReverseProxy" Version="2.3.0" />
+	<None Include="Dockerfile" />
   </ItemGroup>
 
 </Project>
