@@ -48,7 +48,7 @@ services:
       - RabbitMQSetting__Host=rabbitmq
       - ServiceUrlsSetting__IdentityServiceUrl=https://identity-service:5001
       - Kestrel__Certificates__Default__Password=23082003
-      - Kestrel__Certificates__Default__Path=https/localhost.pfx
+      - Kestrel__Certificates__Default__Path=https/product.pfx
     volumes:
       - ./aspnet/https:/app/https:ro
       - /usr/local/share/ca-certificates:/usr/local/share/ca-certificates
@@ -68,7 +68,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:5001;http://+:15001
       - Kestrel__Certificates__Default__Password=23082003
-      - Kestrel__Certificates__Default__Path=https/localhost.pfx
+      - Kestrel__Certificates__Default__Path=https/identity.pfx
     volumes:
       - ./aspnet/https:/app/https:ro
       - /usr/local/share/ca-certificates:/usr/local/share/ca-certificates
