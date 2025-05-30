@@ -1,8 +1,10 @@
 #!/bin/sh
 
-echo "startup script is running"
+echo "[Reverse Proxy] Startup script is running"
 
-cp /app/https/localhost.crt /usr/local/share/ca-certificates
-update-ca-certificates
+# Trust identity-service certificate
+cp /app/https/identity.crt /usr/local/share/ca-certificates/identity.crt
+update-ca-certificates --verbose
 
-dotnet MSA.ReverseProxy.dll
+echo "[Reverse Proxy] Starting app..."
+exec dotnet MSA.ReverseProxy.dll

@@ -1,7 +1,6 @@
 #!/bin/sh
 
-echo "startup script is running"
+echo "[Identity] Startup script is running"
 
-cp /app/https/localhost.crt /usr/local/share/ca-certificates
-update-ca-certificates
-dotnet MSA.IdentityServer.dll
+# Identity service does not need to trust its own cert
+exec dotnet MSA.IdentityServer.dll

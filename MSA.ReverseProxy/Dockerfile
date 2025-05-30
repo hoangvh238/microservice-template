@@ -3,13 +3,16 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 18080
 
-RUN mkdir -p startup
+RUN apt-get update && apt-get install -y ca-certificates
+
+RUN mkdir -p /startup
+
 COPY ./aspnet/https/update-ca-certificate-reverseproxy.sh /startup/
 RUN chmod +x /startup/update-ca-certificate-reverseproxy.sh
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0-preview-jammy AS build
 WORKDIR /src
-COPY ["./MSA.ReverseProxy/MSA.ReverseProxy.csproj","src/MSA.ReverseProxy/"]
+COPY ["./MSA.ReverseProxy/MSA.ReverseProxy.csproj", "src/MSA.ReverseProxy/"]
 RUN dotnet restore "src/MSA.ReverseProxy/MSA.ReverseProxy.csproj"
 COPY . .
 WORKDIR "/src/MSA.ReverseProxy"
@@ -20,6 +23,5 @@ RUN dotnet publish "MSA.ReverseProxy.csproj" -c Release -o /app/publish --self-c
 
 FROM base AS final
 WORKDIR /app
-
 COPY --from=publish /app/publish .
 ENTRYPOINT ["/startup/update-ca-certificate-reverseproxy.sh"]
