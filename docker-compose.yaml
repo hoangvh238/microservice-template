@@ -51,7 +51,7 @@ services:
       - Kestrel__Certificates__Default__Path=https/product.pfx
     volumes:
       - ./aspnet/https:/app/https:ro
-      - /usr/local/share/ca-certificates:/usr/local/share/ca-certificates
+      - ./aspnet/https/product.crt:/usr/local/share/ca-certificates/product.crt:ro
       - /etc/ssl/certs:/etc/ssl/certs
     ports:
       - "5002:5002"
@@ -71,7 +71,7 @@ services:
       - Kestrel__Certificates__Default__Path=https/identity.pfx
     volumes:
       - ./aspnet/https:/app/https:ro
-      - /usr/local/share/ca-certificates:/usr/local/share/ca-certificates
+      - ./aspnet/https/identity.crt:/usr/local/share/ca-certificates/identity.crt:ro
       - /etc/ssl/certs:/etc/ssl/certs
     ports:
       - "5001:5001"
